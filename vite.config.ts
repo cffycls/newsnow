@@ -20,6 +20,12 @@ export default defineConfig({
       "@shared": join(projectDir, "shared"),
     },
   },
+  build: {
+    rollupOptions: {
+      // 不忽略软链接
+      preserveSymlinks: true,
+    },
+  },
   plugins: [
     TanStackRouterVite({
       // error with auto import and vite-plugin-pwa
