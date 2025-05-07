@@ -134,5 +134,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "volta": {
+    "node": "22.15.0"
   }
 }

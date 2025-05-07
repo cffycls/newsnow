@@ -15,6 +15,10 @@ const nitroOption: Parameters<typeof viteNitro>[0] = {
   database: {
     default: {
       connector: "better-sqlite3",
+      // 明确指定数据库路径
+      options: {
+        path: process.env.DATABASE_PATH || "./newsnow.db",
+      },
     },
   },
   imports: {
