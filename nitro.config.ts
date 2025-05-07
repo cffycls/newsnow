@@ -29,6 +29,10 @@ const nitroOption: Parameters<typeof viteNitro>[0] = {
     "@shared": join(projectDir, "shared"),
     "#": join(projectDir, "server"),
   },
+  // 从环境变量读取端口，若未设置则使用默认端口 3000
+  server: {
+    port: Number.parseInt(process.env.PORT || "3000", 10),
+  },
 }
 
 if (process.env.VERCEL) {
