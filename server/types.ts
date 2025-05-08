@@ -64,3 +64,10 @@ export interface SourceOption {
 }
 
 export type SourceGetter = () => Promise<NewsItem[]>
+
+export interface HeaderCacheRow {
+  id: string
+  updated: string
+  source_url: string
+  header: string
+}
