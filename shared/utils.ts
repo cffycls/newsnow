@@ -23,6 +23,18 @@ export function relativeTime(timestamp: string | number) {
   }
 }
 
+export function formatSecondsToHuman(ms: number) {
+  const totalSeconds = Math.floor(ms / 1000)
+  const hours = Math.floor(totalSeconds / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = Math.floor(totalSeconds % 60)
+  const parts = []
+  if (hours > 0) parts.push(`${hours}小时`)
+  if (minutes > 0) parts.push(`${minutes}分钟`)
+  if (seconds > 0 || parts.length === 0) parts.push(`${seconds}秒`)
+  return parts.join("")
+}
+
 export function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
