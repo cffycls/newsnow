@@ -54,6 +54,8 @@ export default defineEventHandler(async (event): Promise<SourceResponse> => {
               items: cache.items,
             }
           }
+        } else {
+          cache = undefined
         }
       }
     }

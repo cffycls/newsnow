@@ -54,7 +54,7 @@ export class HeaderCache {
       const row = (await this.db.prepare(`SELECT header, updated FROM header_cache WHERE id = ?`).get(key)) as HeaderCacheRow | undefined
       if (row) {
         logger.success(`get ${key} header cache`)
-        return JSON.parse(row.header)
+        return row.header ? JSON.parse(row.header) : undefined
       } else {
         const now = new Date().toISOString().slice(0, 19).replace("T", " ")
         await this.db.prepare(

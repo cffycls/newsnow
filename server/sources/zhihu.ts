@@ -1,18 +1,18 @@
 import { getHeaderCacheTable } from "../database/headerCache"
 
 const id = "zhihu"
-// 假设 myFetch 是封装的请求函数
-async function myFetch(url: string, headers?: Record<string, string>) {
-  const response = await fetch(url, { headers })
-  if (response.status === 401) {
+// myFetch2
+async function myFetch2(url: string, headers?: Record<string, string>) {
+  try {
+    return await myFetch(url, { headers })
+  } catch (error) {
     // 清理对应 id 的 header
     const headerCacheResult = await getHeaderCacheTable()
     if (headerCacheResult) {
       await headerCacheResult.setInvalid(id)
     }
-    throw new Error("Unauthorized")
+    throw error
   }
-  return response.json()
 }
 
 interface Res {
@@ -50,10 +50,8 @@ export default defineSource({
     }
 
     const url = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20&desktop=true"
-    logger.warn(headers)
-    const resData = await myFetch(url, headers)
-    // 使用类型断言
-    const res = resData as Res
+    logger.warn({ zhihu: { headers } })
+    const res: Res = await myFetch2(url, headers)
     return res.data
       .map((k) => {
         const urlId = k.target.url?.match(/(\d+)$/)?.[1]
